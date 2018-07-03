@@ -16,7 +16,6 @@ router.get('/test', (req, res) => res.json({msg: "Users works"}));
 // @route Get api/users/register
 // @desc Register user
 // @access Public
-
 router.post('/register', (req, res) => {
   User.findOne({email: req.body.email})
     .then(user => {
@@ -38,17 +37,43 @@ router.post('/register', (req, res) => {
 
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
-            if(err) throw err;
-            newUser.passowrd = hash;
-            newUser
-              .save()
+            if(err) console.log(err);
+            newUser.password = hash;
+            newUser.save()
               .then(user => res.json(user))
               .catch( err => console.log(err))
           })
         })
 
       }
-    })
-})
+    });
+});
+
+// @route Get api/users/login
+// @desc Login user / Returning JWT Token
+// @access Public
+
+router.post('/login', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  //Find user by email
+  User.findOne({email}).then(user => {
+      //Check for user
+      if(!user) {
+        return res.status(404).json({email: 'User not found'});
+      }
+
+      //Check password
+      bcrypt.compare(password, user.password).then(isMatch => {
+          if(isMatch) {
+            res.json({msg: 'Success'});
+          } else {
+            return res.status(400).json({password: 'Password incorrect!'});
+          }
+        });
+    });
+});
+
 
 module.exports = router;
