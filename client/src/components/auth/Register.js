@@ -1,6 +1,25 @@
 import React, { Component } from 'react';
 
 class Register extends Component {
+  constructor() {
+    super();
+    this.state = {
+      name: '',
+      email: '',
+      password: '',
+      password2: '',
+      errors: {}
+    }
+
+    this.onChange = this.onChange.bind(this)
+  }
+
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
   render() {
     return (
     <div className="register">
@@ -11,17 +30,17 @@ class Register extends Component {
           <p className="lead text-center">Create your DevConnector account</p>
           <form action="create-profile.html">
             <div className="form-group">
-              <input type="text" className="form-control form-control-lg" placeholder="Name" name="name" required />
+              <input type="text" className="form-control form-control-lg" placeholder="Name" value={this.state.name} name="name" onChange={this.onChange}/>
             </div>
             <div className="form-group">
-              <input type="email" className="form-control form-control-lg" placeholder="Email Address" name="email" />
+              <input type="email" className="form-control form-control-lg" placeholder="Email Address" value={this.state.email} name="email" onChange={this.onChange}/>
               <small className="form-text text-muted">This site uses Gravatar so if you want a profile image, use a Gravatar email</small>
             </div>
             <div className="form-group">
-              <input type="password" className="form-control form-control-lg" placeholder="Password" name="password" />
+              <input type="password" className="form-control form-control-lg" placeholder="Password" value={this.state.password} name="password" onChange={this.onChange} />
             </div>
             <div className="form-group">
-              <input type="password" className="form-control form-control-lg" placeholder="Confirm Password" name="password2" />
+              <input type="password" className="form-control form-control-lg" placeholder="Confirm Password" value={this.state.password2} name="password2" onChange={this.onChange} />
             </div>
             <input type="submit" className="btn btn-info btn-block mt-4" />
           </form>
