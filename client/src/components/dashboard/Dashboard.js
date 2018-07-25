@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profileActions';
 import Spinner from '../common/Spinner';
 
-import profileActions from './profileActions';
+import ProfileActions from './ProfileActions';
 
 class Dashboard extends Component {
 
@@ -29,7 +29,7 @@ class Dashboard extends Component {
         dashboardContent = (
           <div>
             <p className="lead text-muted">Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link></p>
-            <profileActions />
+            <ProfileActions />
           </div>
         )
       } else {
