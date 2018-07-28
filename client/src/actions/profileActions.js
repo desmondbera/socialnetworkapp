@@ -31,7 +31,7 @@ export const getProfileByHandle = (handle) => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_PROFILE,
-        payload: {}
+        payload: null
       })
     );
 };
