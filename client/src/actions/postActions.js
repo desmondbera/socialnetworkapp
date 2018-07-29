@@ -17,10 +17,10 @@ export const addPost = postData => dispatch => {
 };
 
 //Get Post
-export const getPost = () => dispatch => {
+export const getPosts = () => dispatch => {
   dispatch(setPostLoading());
   axios
-    .post('/api/posts')
+    .get('/api/posts')
     .then(res => dispatch({
       type: GET_POSTS,
       payload: res.data
